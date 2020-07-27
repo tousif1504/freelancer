@@ -6,7 +6,7 @@
       ping:
         data: testing
     - name: copy
-      copy:
-              src: $HOME/workspace/pupiltalk
+      synchronize:
+              src: {{ ansible_env.HOME }}/workspace/pupiltalk
               dest: /var/www/
 
