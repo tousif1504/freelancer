@@ -7,6 +7,6 @@
         data: testing
     - name: copy
       synchronize:
-              src: "{{ lookup('env', 'HOME' }}/workspace/pupiltalk"
+              src: "{{ lookup('env', 'HOME') }}/workspace/pupiltalk"
               dest: "/var/www/"
 
