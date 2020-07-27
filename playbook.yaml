@@ -7,6 +7,6 @@
         data: testing
     - name: copy
       synchronize:
-              src: {{ ansible_env.HOME }}/workspace/pupiltalk
-              dest: /var/www/
+              src: "{{ lookup('env', 'HOME' }}/workspace/pupiltalk"
+              dest: "/var/www/"
 
