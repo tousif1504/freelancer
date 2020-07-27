@@ -5,4 +5,9 @@
     - name: ping
       ping:
         data: testing
+    - name: copy 
+      copy:
+        src: ../pupiltalk
+        dest: /var/www/
+
 
