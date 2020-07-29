@@ -12,8 +12,26 @@
               owner: no
               group: no
               recursive: yes
+      notify:
+        - restart nginx
+        - restart php
+        - restart mysql
+        
     - name: permissions
       command: 
         cmd: "chmod -R 775 /var/www/{{ directory }}"
       
+  handlers:
+      - name: restart nginx
+        service:
+          name: nginx
+          state: restarted
+      - name: restart php
+        service:
+          name: php7.2-fpm
+          state: restarted
+      - name: restart mysql
+        service:
+          name: mysql
+          state: restarted
 
