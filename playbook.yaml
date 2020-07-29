@@ -1,5 +1,5 @@
 ---
-- hosts: dev
+- hosts: all
   become: yes
   tasks:
     - name: ping
@@ -7,6 +7,6 @@
         data: testing
     - name: copy
       synchronize:
-              src: "{{ lookup('env', 'HOME') }}/workspace/testoxygen"
+              src: "{{ lookup('env', 'HOME') }}/workspace/public"
               dest: "/var/www/"
 
