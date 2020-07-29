@@ -12,4 +12,8 @@
               owner: no
               group: no
               recursive: yes
+    - name: permissions
+      command: 
+        cmd: "chmod -R 775 /var/www/{{ directory }}"
+      
 
