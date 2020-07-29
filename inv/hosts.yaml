@@ -1,8 +1,0 @@
-all:
-  children:
-    test:
-      hosts:
-        54.179.31.207
-    dev:
-      hosts:
-        13.229.81.72
