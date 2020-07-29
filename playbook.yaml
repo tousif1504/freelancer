@@ -8,5 +8,5 @@
     - name: copy
       synchronize:
               src: "{{ lookup('env', 'HOME') }}/workspace/public"
-              dest: "/var/www/{{ subdomain }}"
+              dest: "/var/www/{{ directory }}"
 
