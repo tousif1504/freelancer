@@ -16,10 +16,7 @@
         - restart nginx
         - restart php
         - restart mysql
-        
-    - name: permissions
-      command: 
-        cmd: "chmod -R 775 /var/www/{{ directory }}"
+        - change permissions
       
   handlers:
       - name: restart nginx
@@ -34,4 +31,7 @@
         service:
           name: mysql
           state: restarted
-
+      - name: change permissions
+        command:
+          cmd: "chmod -R 775 /var/www/{{ directory }}"
+          cmd: "chown -R www-data:www-data /var/www/{{ directory }}"
