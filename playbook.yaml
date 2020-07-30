@@ -12,6 +12,10 @@
               owner: no
               group: no
               recursive: yes
+    - name: permissions
+      shell:
+          cmd: "chmod -R 775 /var/www/{{ directory }}"
+          cmd: "chown -R www-data:www-data /var/www/{{ directory }}"
       notify:
         - restart nginx
         - restart php
@@ -31,7 +35,3 @@
         service:
           name: mysql
           state: restarted
-      - name: change permissions
-        command:
-          cmd: "chmod -R 775 /var/www/{{ directory }}"
-          cmd: "chown -R www-data:www-data /var/www/{{ directory }}"
