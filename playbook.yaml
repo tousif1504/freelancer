@@ -2,9 +2,40 @@
 - hosts: all
   become: yes
   tasks:
-    - name: ping
-      ping:
-        data: testing
+    - name: add nginx repo
+      apt_repository:
+        repo: ppa:nginx/stable
+        state: present
+        update_cache: yes
+   - name: add php repo
+     apt_repository:
+       repo: ppa:ondrej/php
+       state: present
+       update_cache: yes
+   - name: install packages
+     apt:
+       name: {{ item }}
+       state: present
+       update_cache: yes
+     loop:
+       - nginx
+       - software-properties-common
+       - php7.2
+       - php7.2-mysql
+       - php7.2-fpm
+       - php7.2-xml
+       - php7.2-gd
+       - php7.2-opcache
+       - php7.2-mbstring
+       - zip
+       - unzip
+       - php7.2-zip
+       - mysql-server
+   - name: install composer
+     shell:
+       cmd: "curl -sS https://getcomposer.org/installer | php && sudo mv composer.phar /usr/local/bin/composer"
+       warn: no
+##
     - name: copy
       synchronize:
               src: "{{ lookup('env', 'HOME') }}/workspace/public"
@@ -21,7 +52,17 @@
         - restart php
         - restart mysql
         - change permissions
-      
+    - name: change default nginx config
+      copy:
+        src: ./default
+        dest: /etc/nginx/sites-available/default
+        owner: root
+        group: root
+        mode: '0644'
+        backup: yes
+      notify:
+        - restart nginx
+
   handlers:
       - name: restart nginx
         service:
