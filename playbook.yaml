@@ -2,11 +2,11 @@
 - hosts: all
   become: yes
   tasks:
-    - name: add nginx repo
-      apt_repository:
-        repo: ppa:nginx/stable
-        state: present
-        update_cache: yes
+   - name: add nginx repo
+     apt_repository:
+       repo: ppa:nginx/stable
+       state: present
+       update_cache: yes
    - name: add php repo
      apt_repository:
        repo: ppa:ondrej/php
@@ -36,43 +36,43 @@
        cmd: "curl -sS https://getcomposer.org/installer | php && sudo mv composer.phar /usr/local/bin/composer"
        warn: no
 ##
-    - name: copy
-      synchronize:
-              src: "{{ lookup('env', 'HOME') }}/workspace/public"
-              dest: "/var/www/{{ directory }}"
-              owner: no
-              group: no
-              recursive: yes
-    - name: permissions
-      shell:
-          cmd: "chmod -R 775 /var/www/{{ directory }}"
-          cmd: "chown -R www-data:www-data /var/www/{{ directory }}"
-      notify:
-        - restart nginx
-        - restart php
-        - restart mysql
-        - change permissions
-    - name: change default nginx config
-      copy:
-        src: ./default
-        dest: /etc/nginx/sites-available/default
-        owner: root
-        group: root
-        mode: '0644'
-        backup: yes
-      notify:
-        - restart nginx
+   - name: copy
+     synchronize:
+             src: "{{ lookup('env', 'HOME') }}/workspace/public"
+             dest: "/var/www/{{ directory }}"
+             owner: no
+             group: no
+             recursive: yes
+   - name: permissions
+     shell:
+         cmd: "chmod -R 775 /var/www/{{ directory }}"
+         cmd: "chown -R www-data:www-data /var/www/{{ directory }}"
+     notify:
+       - restart nginx
+       - restart php
+       - restart mysql
+       - change permissions
+   - name: change default nginx config
+     copy:
+       src: ./default
+       dest: /etc/nginx/sites-available/default
+       owner: root
+       group: root
+       mode: '0644'
+       backup: yes
+     notify:
+       - restart nginx
 
-  handlers:
-      - name: restart nginx
-        service:
-          name: nginx
-          state: restarted
-      - name: restart php
-        service:
-          name: php7.2-fpm
-          state: restarted
-      - name: restart mysql
-        service:
-          name: mysql
-          state: restarted
+ handlers:
+   - name: restart nginx
+       service:
+         name: nginx
+         state: restarted
+   - name: restart php
+       service:
+         name: php7.2-fpm
+         state: restarted
+   - name: restart mysql
+       service:
+         name: mysql
+         state: restarted
