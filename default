@@ -5,7 +5,7 @@ server {
 
     root /var/www/$subdomain/public;
     index index.php index.html index.htm index.nginx-debian.html;
-    server_name ~^(?<subdomain>[^.]+).pupiltalk.com;
+    server_name ~^(?<subdomain>[^.]+).pupilpod.net;
 
 
     #root /var/www/erpcore_parentof/public;
